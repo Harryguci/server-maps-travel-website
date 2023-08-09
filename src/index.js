@@ -5,9 +5,9 @@ const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const convertVNtoEng = require("./helpers/convertVNtoEng");
+// const convertVNtoEng = require("./helpers/convertVNtoEng");
 const multer = require("multer");
-const { escape } = require("querystring");
+// const { escape } = require("querystring");
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
     var Path = path.join(__dirname, "..", "public", "uploads");
@@ -49,7 +49,7 @@ app.post("/points/data", async function (req, res, next) {
 
   let check = points.filter(city => city.name.toLowerCase() === data.name.toLowerCase());
 
-  console.log('[CHECK]', check);
+  // console.log('[CHECK]', check);
 
   if (check && check.length) {
     res.send({ error: 'The city is already exists' })
@@ -114,7 +114,7 @@ app.post("/send-image", upload.single('image'), async function (req, res, next) 
     JSON.stringify(currentData)
   );
 
-  res.redirect('https://client-maps-travel-website.vercel.app/');
+  res.redirect('back');
 });
 
 app.get('/get-image', async (req, res) => {
