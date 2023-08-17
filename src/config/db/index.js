@@ -1,5 +1,6 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = `mongodb+srv://harryguci:harryguci@cluster01.chrqhpv.mongodb.net/?retryWrites=true&w=majority`;
+const account = require('./mongoinfo.json');
+const uri = `mongodb+srv://${account.username}:${account.password}@cluster01.chrqhpv.mongodb.net/?retryWrites=true&w=majority`;
 const mongoose = require('mongoose');
 async function run() {
     try {

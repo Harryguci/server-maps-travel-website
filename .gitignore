@@ -7,3 +7,5 @@ node_modules
 *.png
 
 .env
+
+./src/config/db/mongoinfo.json
