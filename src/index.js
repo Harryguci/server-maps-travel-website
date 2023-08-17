@@ -5,6 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const authRouter = require("./routers/auth");
 // const convertVNtoEng = require("./helpers/convertVNtoEng");
 const multer = require("multer");
 // const { escape } = require("querystring");
@@ -26,6 +27,11 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
+const { validateToken } = require('./middleware/Authentication');
+
+const db = require('./config/db');
+
+db.connect();
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -35,6 +41,8 @@ app.use(bodyParser.json());
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, "..", "public")));
+
+app.use('/auth', authRouter);
 
 app.post("/points/data", async function (req, res, next) {
   const data = req.body;
@@ -117,12 +125,13 @@ app.post("/send-image", upload.single('image'), async function (req, res, next) 
   res.redirect('back');
 });
 
-app.get('/get-image', async (req, res) => {
+app.get('/get-image', validateToken, async (req, res) => {
   let data = await fs.readFileSync(path.join(__dirname, "..", "public", "uploads", "reviews.json"), 'utf8');
+  console.log(data);
   res.send(data);
 });
 
-app.get("/", (req, res) => {
+app.get("/", validateToken, (req, res) => {
   res.send({ 'title': 'Harryguci' })
 });
 
