@@ -125,13 +125,13 @@ app.post("/send-image", upload.single('image'), async function (req, res, next) 
   res.redirect('back');
 });
 
-app.get('/get-image', validateToken, async (req, res) => {
+app.get('/get-image', async (req, res) => {
   let data = await fs.readFileSync(path.join(__dirname, "..", "public", "uploads", "reviews.json"), 'utf8');
   console.log(data);
   res.send(data);
 });
 
-app.get("/", validateToken, (req, res) => {
+app.get("/", (req, res) => {
   res.send({ 'title': 'Harryguci' })
 });
 
