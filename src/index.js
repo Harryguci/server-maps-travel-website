@@ -27,7 +27,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-const { validateToken } = require('./middleware/Authentication');
+// const { validateToken } = require('./middleware/Authentication');
 
 const db = require('./config/db');
 
