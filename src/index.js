@@ -46,7 +46,7 @@ app.use('/auth', authRouter);
 
 app.post("/points/data", async function (req, res, next) {
   const data = req.body;
-  console.log(data);
+  //console.log(data);
 
   let points = await fs.readFileSync(
     path.join(__dirname, "..", "public", "uploads", "points.json"),
